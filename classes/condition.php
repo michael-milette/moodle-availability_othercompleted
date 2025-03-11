@@ -123,6 +123,7 @@ class condition extends \core_availability\condition {
         // Get name for module.
         $modc = get_courses();
 
+        $modname = '';
         foreach ($modc as $modcs) {
             if($modcs->id == $this->courseid){
                 $modname = $modcs->fullname;
