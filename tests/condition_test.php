@@ -149,7 +149,8 @@ final class condition_test extends \advanced_testcase {
         $cond = new condition($structure);
         $saved = $cond->save();
         $this->assertEquals('othercompleted', $saved->type);
-        $this->assertEquals(42, $saved->course);  // Note: saves as 'course' not 'cm'
+        // Note: Saves as 'course' property, not 'cm'.
+        $this->assertEquals(42, $saved->course);
         $this->assertEquals(COMPLETION_COMPLETE, $saved->e);
     }
 
@@ -170,7 +171,7 @@ final class condition_test extends \advanced_testcase {
         // Create other course with a recognizable name.
         $othercourse = $generator->create_course([
             'enablecompletion' => 1,
-            'fullname' => 'Required Course'
+            'fullname' => 'Required Course',
         ]);
 
         $user = $generator->create_user();
@@ -225,19 +226,25 @@ final class condition_test extends \advanced_testcase {
         // Create a page with restriction based on othercourse1.
         $page = $generator->get_plugin_generator('mod_page')->create_instance([
             'course' => $course->id,
-            'completion' => COMPLETION_TRACKING_MANUAL
+            'completion' => COMPLETION_TRACKING_MANUAL,
         ]);
 
-        $DB->set_field('course_modules', 'availability',
-                '{"op":"|","show":true,"c":[' .
+        $DB->set_field(
+            'course_modules',
+            'availability',
+            '{"op":"|","show":true,"c":[' .
                 '{"type":"othercompleted","e":1,"cm":' . $othercourse1->id . '}]}',
-                ['id' => $page->cmid]);
+            ['id' => $page->cmid]
+        );
 
         // Set section 1 to depend on othercourse2.
-        $DB->set_field('course_sections', 'availability',
-                '{"op":"|","show":true,"c":[' .
+        $DB->set_field(
+            'course_sections',
+            'availability',
+            '{"op":"|","show":true,"c":[' .
                 '{"type":"othercompleted","e":1,"cm":' . $othercourse2->id . '}]}',
-                ['course' => $course->id, 'section' => 1]);
+            ['course' => $course->id, 'section' => 1]
+        );
 
         // Check: othercourse3 is not used, but othercourse1 and othercourse2 are.
         $this->assertTrue(condition::completion_value_used($course, $othercourse1->id));
