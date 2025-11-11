@@ -3,6 +3,7 @@
  *
  * @module moodle-availability_othercompleted-form
  */
+// eslint-disable-next-line camelcase
 M.availability_othercompleted = M.availability_othercompleted || {};
 
 /**
@@ -23,17 +24,21 @@ M.availability_othercompleted.form.initInner = function(cms) {
 
 M.availability_othercompleted.form.getNode = function(json) {
     // Create HTML structure.
-    var html = '<span class="col-form-label p-r-1"> ' + M.util.get_string('title', 'availability_othercompleted') + '</span>' +
-               ' <span class="availability-group form-group"><label>' +
-            '<span class="accesshide">' + M.util.get_string('label_cm', 'availability_othercompleted') + ' </span>' +
-            '<select class="custom-select" name="cm" title="' + M.util.get_string('label_cm', 'availability_othercompleted') + '">' +
+    var html = '<span class="col-form-label p-r-1"> ' +
+            M.util.get_string('title', 'availability_othercompleted') + '</span>' +
+            ' <span class="availability-group form-group"><label>' +
+            '<span class="accesshide">' +
+            M.util.get_string('label_cm', 'availability_othercompleted') + ' </span>' +
+            '<select class="custom-select" name="cm" title="' +
+            M.util.get_string('label_cm', 'availability_othercompleted') +
+            '">' +
             '<option value="0">' + M.util.get_string('choosedots', 'moodle') + '</option>';
     for (var i = 0; i < this.cms.length; i++) {
         var cm = this.cms[i];
         // String has already been escaped using format_string.
         html += '<option value="' + cm.id + '">' + cm.name + '</option>';
     }
-    
+
     html += '</select></label> <label><span class="accesshide">' +
                 M.util.get_string('label_completion', 'availability_othercompleted') +
             ' </span><select class="custom-select" ' +
