@@ -67,11 +67,13 @@ class condition extends \core_availability\condition {
      * @throws \coding_exception If invalid data structure.
      */
     public function __construct($structure) {
-        // Get courseid.
-        if (isset($structure->cm) && is_number($structure->cm)) {
-            $this->courseid = (int)$structure->cm;
+        // Get courseid. Accept 'course' (post-69e5c26) and 'cm' (pre-69e5c26) for backwards compatibility.
+        if (isset($structure->course) && is_number($structure->course)) {
+            $this->courseid = (int)$structure->course;
+        } else if (isset($structure->cm) && is_number($structure->cm)) {
+            $this->courseid = (int)$structure->cm; // Backwards compat for pre-69e5c26 data.
         } else {
-            throw new \coding_exception('Missing or invalid ->cm for completion condition');
+            throw new \coding_exception('Missing or invalid ->course for completion condition');
         }
 
         // Get expected completion.

@@ -24,6 +24,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version = 2025111000;
+$plugin->version = 2026031700;
 $plugin->requires = 2024100100;
 $plugin->component = 'availability_othercompleted';

@@ -105,7 +105,7 @@ final class condition_test extends \advanced_testcase {
             $cond = new condition($structure);
             $this->fail();
         } catch (\coding_exception $e) {
-            $this->assertStringContainsString('Missing or invalid ->cm', $e->getMessage());
+            $this->assertStringContainsString('Missing or invalid ->course', $e->getMessage());
         }
 
         // Invalid cm (not a number).
@@ -114,7 +114,7 @@ final class condition_test extends \advanced_testcase {
             $cond = new condition($structure);
             $this->fail();
         } catch (\coding_exception $e) {
-            $this->assertStringContainsString('Missing or invalid ->cm', $e->getMessage());
+            $this->assertStringContainsString('Missing or invalid ->course', $e->getMessage());
         }
 
         // Missing expected completion.

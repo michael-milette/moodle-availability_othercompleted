@@ -48,9 +48,9 @@ M.availability_othercompleted.form.getNode = function(json) {
     var node = Y.Node.create('<span class="form-inline">' + html + '</span>');
 
     // Set initial values.
-    if (json.cm !== undefined &&
-            node.one('select[name=cm] > option[value=' + json.cm + ']')) {
-        node.one('select[name=cm]').set('value', '' + json.cm);
+    if (json.course !== undefined &&
+            node.one('select[name=cm] > option[value=' + json.course + ']')) {
+        node.one('select[name=cm]').set('value', '' + json.course);
     }
     if (json.e !== undefined) {
         node.one('select[name=e]').set('value', '' + json.e);
@@ -70,7 +70,7 @@ M.availability_othercompleted.form.getNode = function(json) {
 };
 
 M.availability_othercompleted.form.fillValue = function(value, node) {
-    value.cm = parseInt(node.one('select[name=cm]').get('value'), 10);
+    value.course = parseInt(node.one('select[name=cm]').get('value'), 10);
     value.e = parseInt(node.one('select[name=e]').get('value'), 10);
 };
 
