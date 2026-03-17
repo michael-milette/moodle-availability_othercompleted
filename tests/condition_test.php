@@ -96,7 +96,7 @@ class availability_othercompleted_condition_testcase extends advanced_testcase {
             $cond = new condition($structure);
             $this->fail();
         } catch (coding_exception $e) {
-            $this->assertContains('Missing or invalid ->cm', $e->getMessage());
+            $this->assertContains('Missing or invalid ->course', $e->getMessage());
         }
 
         // Invalid $cm.
@@ -105,7 +105,7 @@ class availability_othercompleted_condition_testcase extends advanced_testcase {
             $cond = new condition($structure);
             $this->fail();
         } catch (coding_exception $e) {
-            $this->assertContains('Missing or invalid ->cm', $e->getMessage());
+            $this->assertContains('Missing or invalid ->course', $e->getMessage());
         }
 
         // Missing $e.
@@ -136,9 +136,8 @@ class availability_othercompleted_condition_testcase extends advanced_testcase {
      * Tests the save() function.
      */
     public function test_save() {
-        $structure = (object)array('cm' => 42, 'e' => COMPLETION_COMPLETE);
-        $cond = new condition($structure);
-        $structure->type = 'othercompleted';
+        $structure = (object)array('type' => 'othercompleted', 'course' => 42, 'e' => COMPLETION_COMPLETE);
+        $cond = new condition((object)array('course' => 42, 'e' => COMPLETION_COMPLETE));
         $this->assertEquals($structure, $cond->save());
     }
 
@@ -257,6 +256,6 @@ class availability_othercompleted_condition_testcase extends advanced_testcase {
         $this->assertFalse($cond->update_dependency_id('course_modules', 12, 34));
         $this->assertTrue($cond->update_dependency_id('course_modules', 123, 456));
         $after = $cond->save();
-        $this->assertEquals(456, $after->cm);
+        $this->assertEquals(456, $after->course);
     }
 }
