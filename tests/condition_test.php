@@ -43,7 +43,6 @@ final class condition_test extends \advanced_testcase {
     /**
      * Setup test environment.
      */
-    #[\Override]
     protected function setUp(): void {
         parent::setUp();
         global $CFG;
